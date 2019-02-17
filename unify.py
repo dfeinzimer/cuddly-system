@@ -29,43 +29,38 @@ function unify(E1, E2);
 end
 '''
 
+
 def apply():
-  	# What does apply do?
+	# What does apply do?
 	pass
 
-def unify(E1, E):
-  # if both E1 and E2 are constants (lowercase letters) or the empty list2):
-  if (E1[0].islower() and E2[0].islower())
-  	if (E1 == E2)
-    	ren {}
-    else
-		  	return Fa
-  # if E1 is a variable
-  if (E1[0].isupper())    # if E1 occurs (or shows up) in E2
-      if E1 in E2
-    	return False
-      else
-      	return {E2 / E1}
-  # if E2 is a variable
-  if (E2[0].isupper())
-  	  # if E2 occurs (or shows up) in E1
-      if E2 in E1
-      	return False
-      else
-      	return {E1 / E2}
-  # if E1 or E2 are empty
-  if (E1 = {} || E2 = {})
-      return False
-  else # (OTHERWISE)
-      HE1 = E1[0]	# HE1 = first element of E1
-      HE2 = E2[0]   # HE2 = first element of E2
-      SUBS1 = unify(HE1, HE2)
-      if (SUBS1.equals(False))
-      	return False
-      TE1 = apply(SUBS1, E1.range(1,))
-      TE2 = apply(SUBS1, E2.range(1,))
-      SUBS2 = unify(TE1, TE2)
-      if (SUBS2.equaal(False))
-      	return False
-      else
-      	return composition(SUBS1,SUBS2)
+
+def composition():
+	# Implement composition()
+	pass
+
+
+def unify(E1, E2):
+
+	# If both E1 and E2 are constants or empty lists
+	if ((len(E1)==0 and len(E2)==0) or (E1[0].islower() and E2[0].islower())):
+		print('E1 & E2 are lower')
+		if (E1 == E2):
+			return None
+		else:
+			return "Fail: E1 & E2 are not equal"
+
+
+# Main function
+if __name__ == "__main__":
+	print("Test 1: Empty lists")
+	print(unify([],[]))
+	print()
+
+	print("Test 2: Nonempty lists")
+	print(unify(["justin","david","stephen"],["Person"]))
+	print()
+
+	print("Test 3: Two constant lists")
+	print(unify(["justin","david","stephen"],["adam"]))
+	print()
