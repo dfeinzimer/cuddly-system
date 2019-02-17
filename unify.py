@@ -1,9 +1,10 @@
+'''
 function unify(E1, E2);
 	begin
   		case
     		both E1 and E2 are constants or the empty list:    #recursion stops
         		if E1 = E2 then return {}
-        		else 
+        		else
           			return FAIL;
         	E1 is a variable:
             	if E1 occurs in E2 then return FAIL
@@ -23,14 +24,16 @@ function unify(E1, E2);
                     SUBS2 = unify(TE1, TE2)
               		if SUBS2 = FAIL then return FAIL
         				else return composition(SUBS1, SUBS2)
-       			end     
-	end         
+       			end
+	end
 end
+'''
 
 def apply():
-  # What does apply do?
+  	# What does apply do?
+	pass
 
-def unify(E1, E)
+def unify(E1, E):
   # if both E1 and E2 are constants (lowercase letters) or the empty list2):
   if (E1[0].islower() and E2[0].islower())
   	if (E1 == E2)
@@ -38,17 +41,17 @@ def unify(E1, E)
     else
 		  	return Fa
   # if E1 is a variable
-  if (E1[0].isupper())    # if E1 occurs (or shows up) in E2 
+  if (E1[0].isupper())    # if E1 occurs (or shows up) in E2
       if E1 in E2
     	return False
-      else 
+      else
       	return {E2 / E1}
-  # if E2 is a variable 
+  # if E2 is a variable
   if (E2[0].isupper())
   	  # if E2 occurs (or shows up) in E1
-      if E2 in E1 
+      if E2 in E1
       	return False
-      else 
+      else
       	return {E1 / E2}
   # if E1 or E2 are empty
   if (E1 = {} || E2 = {})
@@ -66,9 +69,3 @@ def unify(E1, E)
       	return False
       else
       	return composition(SUBS1,SUBS2)
-      
-      
-      
-      
-      
-      
