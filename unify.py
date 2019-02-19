@@ -22,7 +22,7 @@ function unify(E1, E2);
                   	TE1 = apply(SUBS1, rest of E1)
                     TE2 = apply(SUBS2, rest of E2)
                     SUBS2 = unify(TE1, TE2)
-              		if SUBS2 = FAIL then return FAIL
+              		if SUBS2X/ = FAIL then return FAIL
         				else return composition(SUBS1, SUBS2)
        			end
 	end
@@ -82,6 +82,7 @@ def unify(E1, E2):
 		print("Fail: E1 or E2 are empty")
 		return False
 
+	# Otherwise begin
 	HE1 = E1[0]
 	HE2 = E2[0]
 	SUBS1 = unify(HE1, HE2)
@@ -89,6 +90,14 @@ def unify(E1, E2):
 	if (SUBS1 == False):
 		print("Fail: SUBS1 returned Fail")
 		return False
+	TE1 = apply(SUBS1, E1[:1])
+	TE2 = apply(SUBS1, E2[:1])
+	SUBS2 = unify(TE1, TE2)
+	if (SUBS2 == False):
+		print("Fail: SUBS2 returned Fail")
+		return False
+	else:
+		return composition(SUBS1, SUBS2)
 
 
 # Main function
