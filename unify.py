@@ -42,8 +42,13 @@ def composition():
 
 def unify(E1, E2):
 
+  	if ((len(E1)==0 or len(E2)==0)):
+		print('Fail: E1 or E2 is empty')
+		print('Program terminated')
+		return False
+  
 	# If both E1 and E2 are constants or empty lists
-	if ((len(E1)==0 and len(E2)==0) or (E1[0].islower() and E2[0].islower())):
+	if (E1[0].islower() and E2[0].islower()):
 		print('E1 & E2 are lower')
 		if (E1 == E2):
 			return None
@@ -83,6 +88,8 @@ def unify(E1, E2):
 		return False
 
 	# Otherwise begin
+    # HE1 = first element in E1
+    # HE2 = first element in E2
 	HE1 = E1[0]
 	HE2 = E2[0]
 	SUBS1 = unify(HE1, HE2)
@@ -90,6 +97,8 @@ def unify(E1, E2):
 	if (SUBS1 == False):
 		print("Fail: SUBS1 returned Fail")
 		return False
+    # TE1 = every element excluding the first in E1
+    # TE2 = every element excluding the first in E2
 	TE1 = apply(SUBS1, E1[:1])
 	TE2 = apply(SUBS1, E2[:1])
 	SUBS2 = unify(TE1, TE2)
@@ -107,17 +116,17 @@ if __name__ == "__main__":
 	print()
 
 	print("Test 2: Nonempty lists")
-	print("Result:", unify(["justin","david","stephen"],["Person"]))
+	print("Result:", unify(["justin", "david", "stephen"],["Person1", "Person2", "Person3"]))
 	print()
 
 	print("Test 3: Two constant lists")
-	print("Result:", unify(["justin","david","stephen"],["adam"]))
+	print("Result:", unify(["justin", "david", "stephen"],["adam", "eve", "jesus"]))
 	print()
 
 	print("Test 4: Variable exists in two lists")
-	print("Result:", unify(["Person"],["Person", "Person2"]))
+	print("Result:", unify(["Person1", "random1"],["Person1", "random2"]))
 	print()
 
-	#print("Test 5: One empty set")
-	#print("Result:", unify([],["Person"]))
-	#print()
+	print("Test 5: One empty set")
+	print("Result:", unify([],["Person"]))
+	print()
