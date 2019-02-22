@@ -5,9 +5,11 @@ def apply(Arg1, Arg2):
 			print("apply(): Match found:", Arg1, Arg2)
 			x = Arg1[1]
 			print("apply(): Done:", Arg1, Arg2)
+	return Arg1, Arg2
 
 
 def composition(List1, List2):
+	apply(List1, List2)
 	return List1 + List2
 
 
@@ -19,7 +21,7 @@ def unify(E1, E2):
 		return []
 
 	# If both E1 and E2 are constants or empty lists
-	if (E1[0].islower() and E2[0].islower()):
+	if (E1[0][0].islower() and E2[0][0].islower()):
 		print('E1 & E2 are lower')
 		if (E1 == E2):
 			return []
@@ -28,7 +30,7 @@ def unify(E1, E2):
 			return False
 
 	# If E1 is a variable
-	if (E1[0][0].isupper()):
+	if (E1[0][0].isupper() and len(E1)==1 ):
 		print('E1 is a variable')
 		for x in E2:
 			if (x == E1[0]):
@@ -38,7 +40,7 @@ def unify(E1, E2):
 		return E2, E1
 
 	# If E2 is a variable
-	if (E2[0][0].isupper()):
+	if (E2[0][0].isupper() and len(E2)==1):
 		print('E2 is a variable')
 		for x in E1:
 			if (x == E2[0]):
@@ -46,11 +48,6 @@ def unify(E1, E2):
 				return False
 		print("Preparing to swap: ", E1, E2)
 		return E2, E1
-
-	# Either E1 or E2 are empty
-	if (E1.len() == 0 or E2.len() == 0 ):
-		print("Fail: E1 or E2 are empty")
-		return False
 
 	# Otherwise begin
     # HE1 = first element in E1
@@ -98,4 +95,8 @@ if __name__ == "__main__":
 
 	print("Test 6: unify([a, b, c],[x, y, z])")
 	print("Result:", unify(["a","b","c"],["x","y","z"]))
+	print()
+
+	print("Test 7: unify([j, j, b],[P1, P1, P2])")
+	print("Result:", unify(["j","j","b"],["P1","P1","P2"]))
 	print()
