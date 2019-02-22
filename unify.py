@@ -1,86 +1,51 @@
-'''
-function unify(E1, E2);
-	begin
-  		case
-    		both E1 and E2 are constants or the empty list:    #recursion stops
-        		if E1 = E2 then return {}
-        		else
-          			return FAIL;
-        	E1 is a variable:
-            	if E1 occurs in E2 then return FAIL
-            		else return {E2 / E1}
-            E2 is a variable:
-              	if E2 occurs in E1 then return FAIL
-              		else return {E1 / E2}
-            either E1 or E2 are empty then return FAIL      # the lists are of different sizes
-          	otherwise:                                           # both E1 and E2 are lists
-              	begin
-                	HE1 = first element of E1
-                    HE2 = first element of E2
-                    SUBS1 = unify(HE1, HE2)
-                    if SUBS1 = FAIL then return FAIL
-                  	TE1 = apply(SUBS1, rest of E1)
-                    TE2 = apply(SUBS2, rest of E2)
-                    SUBS2 = unify(TE1, TE2)
-              		if SUBS2X/ = FAIL then return FAIL
-        				else return composition(SUBS1, SUBS2)
-       			end
-	end
-end
-'''
+def apply(Arg1, Arg2):
+	print("apply()", Arg1, Arg2)
+	for x in Arg2:
+		if x == Arg1[0]:
+			print("apply(): Match found:", Arg1, Arg2)
+			x = Arg1[1]
+			print("apply(): Done:", Arg1, Arg2)
 
 
-def apply():
-	# What does apply do?
-	pass
-
-
-def composition():
-	# Implement composition()
-	pass
+def composition(List1, List2):
+	return List1 + List2
 
 
 def unify(E1, E2):
 
-  	if ((len(E1)==0 or len(E2)==0)):
-		print('Fail: E1 or E2 is empty')
+	if (len(E1)==0 and len(E2)==0):
+		print('Fail: E1 and E2 are empty')
 		print('Program terminated')
-		return False
-  
+		return []
+
 	# If both E1 and E2 are constants or empty lists
 	if (E1[0].islower() and E2[0].islower()):
 		print('E1 & E2 are lower')
 		if (E1 == E2):
-			return None
+			return []
 		else:
 			print("Fail: E1 & E2 are not equal")
 			return False
 
 	# If E1 is a variable
 	if (E1[0][0].isupper()):
+		print('E1 is a variable')
 		for x in E2:
 			if (x == E1[0]):
 				print("Fail: E1 occurs in E2")
 				return False
 		print("Preparing to swap: ", E1, E2)
-		temp = E1[0]
-		E1[0] = E2[0]
-		E2[0] = temp
-		print("Finished swap: ", E1, E2)
-		return E1, E2
+		return E2, E1
 
 	# If E2 is a variable
 	if (E2[0][0].isupper()):
+		print('E2 is a variable')
 		for x in E1:
 			if (x == E2[0]):
 				print("Fail: E2 occurs in E1")
 				return False
 		print("Preparing to swap: ", E1, E2)
-		temp = E1[0]
-		E1[0] = E2[0]
-		E2[0] = temp
-		print("Finished swap: ", E1, E2)
-		return E1, E2
+		return E2, E1
 
 	# Either E1 or E2 are empty
 	if (E1.len() == 0 or E2.len() == 0 ):
@@ -111,22 +76,26 @@ def unify(E1, E2):
 
 # Main function
 if __name__ == "__main__":
-	print("Test 1: Empty lists")
+	print("Test 1: unify([],[])")
 	print("Result:", unify([],[]))
 	print()
 
-	print("Test 2: Nonempty lists")
+	print("Test 2: unify([justin, david, stephen],[Person1, Person2, Person3])")
 	print("Result:", unify(["justin", "david", "stephen"],["Person1", "Person2", "Person3"]))
 	print()
 
-	print("Test 3: Two constant lists")
+	print("Test 3: unify([justin, david, stephen],[adam, eve, jesus])")
 	print("Result:", unify(["justin", "david", "stephen"],["adam", "eve", "jesus"]))
 	print()
 
-	print("Test 4: Variable exists in two lists")
+	print("Test 4: unify([Person1, random1],[Person1, random2])")
 	print("Result:", unify(["Person1", "random1"],["Person1", "random2"]))
 	print()
 
-	print("Test 5: One empty set")
-	print("Result:", unify([],["Person"]))
+	print("Test 5: unify([a, b, c],[X, Y, Z])")
+	print("Result:", unify(["a","b","c"],["X","Y","Z"]))
+	print()
+
+	print("Test 6: unify([a, b, c],[x, y, z])")
+	print("Result:", unify(["a","b","c"],["x","y","z"]))
 	print()
