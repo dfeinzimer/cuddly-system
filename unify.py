@@ -1,11 +1,11 @@
 def apply(Arg1, Arg2):
-	print("apply()", Arg1, Arg2)
+	print("apply(", Arg1, Arg2,")")
 	for x in Arg2:
 		if x == Arg1[0]:
 			print("apply(): Match found:", Arg1, Arg2)
 			x = Arg1[1]
 			print("apply(): Done:", Arg1, Arg2)
-	return Arg1, Arg2
+	return Arg2
 
 
 def composition(List1, List2):
@@ -15,6 +15,8 @@ def composition(List1, List2):
 
 def unify(E1, E2):
 
+	print("unify(",E1,E2,")")
+
 	if (len(E1)==0 and len(E2)==0):
 		print('Fail: E1 and E2 are empty')
 		print('Program terminated')
@@ -22,7 +24,7 @@ def unify(E1, E2):
 
 	# If both E1 and E2 are constants or empty lists
 	if (E1[0][0].islower() and E2[0][0].islower()):
-		print('E1 & E2 are lower')
+		print('E1 & E2 are constants or empty lists')
 		if (E1 == E2):
 			return []
 		else:
@@ -30,10 +32,10 @@ def unify(E1, E2):
 			return False
 
 	# If E1 is a variable
-	if (E1[0][0].isupper() and len(E1)==1 ):
+	if (E1[0][0].isupper() and len(E1)==1):
 		print('E1 is a variable')
 		for x in E2:
-			if (x == E1[0]):
+			if (x == E1):
 				print("Fail: E1 occurs in E2")
 				return False
 		print("Preparing to swap: ", E1, E2)
@@ -43,7 +45,7 @@ def unify(E1, E2):
 	if (E2[0][0].isupper() and len(E2)==1):
 		print('E2 is a variable')
 		for x in E1:
-			if (x == E2[0]):
+			if (x == E2):
 				print("Fail: E2 occurs in E1")
 				return False
 		print("Preparing to swap: ", E1, E2)
@@ -54,6 +56,8 @@ def unify(E1, E2):
     # HE2 = first element in E2
 	HE1 = E1[0]
 	HE2 = E2[0]
+	print("HE1:",HE1)
+	print("HE2:",HE2)
 	SUBS1 = unify(HE1, HE2)
 	print("SUBS1:", SUBS1)
 	if (SUBS1 == False):
@@ -63,6 +67,8 @@ def unify(E1, E2):
     # TE2 = every element excluding the first in E2
 	TE1 = apply(SUBS1, E1[:1])
 	TE2 = apply(SUBS1, E2[:1])
+	print("TE1:",TE1)
+	print("TE2:",TE2)
 	SUBS2 = unify(TE1, TE2)
 	if (SUBS2 == False):
 		print("Fail: SUBS2 returned Fail")
@@ -73,30 +79,34 @@ def unify(E1, E2):
 
 # Main function
 if __name__ == "__main__":
-	print("Test 1: unify([],[])")
+	print("Test 1")
 	print("Result:", unify([],[]))
 	print()
 
-	print("Test 2: unify([justin, david, stephen],[Person1, Person2, Person3])")
+	print("Test 2")
 	print("Result:", unify(["justin", "david", "stephen"],["Person1", "Person2", "Person3"]))
 	print()
 
-	print("Test 3: unify([justin, david, stephen],[adam, eve, jesus])")
+	print("Test 3")
 	print("Result:", unify(["justin", "david", "stephen"],["adam", "eve", "jesus"]))
 	print()
 
-	print("Test 4: unify([Person1, random1],[Person1, random2])")
+	print("Test 4")
 	print("Result:", unify(["Person1", "random1"],["Person1", "random2"]))
 	print()
 
-	print("Test 5: unify([a, b, c],[X, Y, Z])")
+	print("Test 5")
 	print("Result:", unify(["a","b","c"],["X","Y","Z"]))
 	print()
 
-	print("Test 6: unify([a, b, c],[x, y, z])")
+	print("Test 6")
 	print("Result:", unify(["a","b","c"],["x","y","z"]))
 	print()
 
-	print("Test 7: unify([j, j, b],[P1, P1, P2])")
+	print("Test 7")
 	print("Result:", unify(["j","j","b"],["P1","P1","P2"]))
+	print()
+
+	print("Test 8")
+	print("Result:", unify(["X","Y"],["a","Z"]))
 	print()
